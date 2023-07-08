@@ -2,7 +2,7 @@ class Endpoints {
   Endpoints._();
 
   // base url
-  static const String baseUrl = "http://api.mail.tm/";
+  static const String baseUrl = "https://api.mail.tm/";
 
   // receiveTimeout
   static const int receiveTimeout = 100000;

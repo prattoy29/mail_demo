@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mail_demo/common/network/model/request/account_creation_request.dart';
-import 'package:mail_demo/common/network/model/response/domainResponse.dart';
 import 'package:mail_demo/common/network/model/response/token_response.dart';
 import 'package:mail_demo/services/auth_service.dart';
-import 'package:mail_demo/services/domain_service.dart';
 import 'package:mail_demo/views/mail_inbox_view.dart';
 
 import '../../../../common/network/dio/dio_exceptions.dart';
@@ -51,8 +49,8 @@ class AuthController extends GetxController {
         dialogType: DialogType.ERROR,
         animType: AnimType.BOTTOMSLIDE,
         title: errorMessage,
-        btnOkText: "Login",
-        btnOkColor: redColor,
+        btnOkText: "Ok",
+        btnOkColor: deepRedColor,
         desc: "",
         dismissOnTouchOutside: true,
         btnOkOnPress: () {
@@ -79,7 +77,19 @@ class AuthController extends GetxController {
     } on DioError catch (e) {
       isLoading.value = false;
       final errorMessage = DioExceptions.fromDioError(e).message;
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.ERROR,
+        animType: AnimType.BOTTOMSLIDE,
+        title: errorMessage,
+        btnOkText: "Ok",
+        btnOkColor: deepRedColor,
+        desc: "",
+        dismissOnTouchOutside: true,
+        btnOkOnPress: () {
 
+        },
+      ).show();
       throw errorMessage;
     }
   }
