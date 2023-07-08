@@ -4,13 +4,16 @@ A demo mailing project
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+# Mail App
 
-A few resources to get you started if this is your first Flutter project:
+#### This is a demo mail app when an user can &#8594;
+* Create account from available domain list
+* Login with credentials and view mails sent to user
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Packages used in the project &#8594;
+* Dio (For network call)
+* GetX (For state management)
+* AwesomeDialog (For popup instructions)
+## Screenshots of the app &#8594;
+![NEW](https://github.com/prattoy29/mail_demo/assets/30951026/53b55007-ae67-49e0-8971-e5efda8f4995)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
