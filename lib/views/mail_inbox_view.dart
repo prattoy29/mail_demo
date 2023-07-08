@@ -34,113 +34,110 @@ class _MailInboxViewState extends State<MailInboxView> {
       appBar: Appbar.getDefaultAppBar("Inbox", context),
       body: SafeArea(
         child: Center(
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Obx(() {
-              if (mailController.isLoading.value) {
-                return AlertDialog(
-                  elevation: 0,
-                  backgroundColor: Colors.white,
-                  content: Column(
-                    children: [
-                      SpinKitCubeGrid(
-                        itemBuilder: (BuildContext context, int index) {
-                          return DecoratedBox(
-                            decoration: BoxDecoration(
-                              color:
-                                  index.isEven ? Colors.black : Colors.blueGrey,
-                            ),
-                          );
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(),
+                  GestureDetector(
+                    onTap: () {
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.WARNING,
+                        animType: AnimType.BOTTOMSLIDE,
+                        title: 'Logout',
+                        desc: "Are you sure to logout?",
+                        dismissOnTouchOutside: false,
+                        btnOkText: "Yes",
+                        btnOkOnPress: () {
+                          storage.write("token", null);
+                          Get.offAll(DomainSelectionView(title: "Mail Demo"));
                         },
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left: 7),
-                          child: Text(
-                            "Fetching Data",
-                            style: HeaderTextStyle.customHeadline,
-                          )),
-                    ],
-                  ),
-                );
-              } else {
-                if (mailController.mailList.value!.hydraTotalItems == 0) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      ).show();
+
+                    },
+                    child: Row(
                       children: [
                         Icon(
-                          Icons.report_gmailerrorred_rounded,
-                          size: 70,
-                          color: deepRedColor,
+                          Icons.logout_outlined,
+                          color: blackColor,
+                          size: 40,
                         ),
                         Text(
-                          "No mail for now",
+                          "Log Out",
                           style: TextStyle(
-                            fontFamily: 'Poppins',
+                            fontFamily: "Poppins",
                             color: Colors.black,
-                            fontSize: 20.0,
+                            fontSize: 14.0,
+                            letterSpacing: 1.2,
                           ),
                         ),
                       ],
                     ),
-                  );
-                } else {
-                  return RefreshIndicator(
-                    key: _refreshIndicatorKey,
-                    onRefresh: () async {
-                      mailController.fetchMails();
-                    },
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Obx(() {
+                    if (mailController.isLoading.value) {
+                      return AlertDialog(
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        content: Column(
                           children: [
-                            Container(),
-                            GestureDetector(
-                              onTap: () {
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.WARNING,
-                                  animType: AnimType.BOTTOMSLIDE,
-                                  title: 'Logout',
-                                  desc: "Are you sure to logout?",
-                                  dismissOnTouchOutside: false,
-                                  btnOkText: "Yes",
-                                  btnOkOnPress: () {
-                                    storage.write("token", null);
-                                    Get.offAll(DomainSelectionView(title: "Mail Demo"));
-                                  },
-                                ).show();
-
+                            SpinKitCubeGrid(
+                              itemBuilder: (BuildContext context, int index) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        index.isEven ? Colors.black : Colors.blueGrey,
+                                  ),
+                                );
                               },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.logout_outlined,
-                                    color: blackColor,
-                                    size: 40,
-                                  ),
-                                  Text(
-                                    "Log Out",
-                                    style: TextStyle(
-                                      fontFamily: "Poppins",
-                                      color: Colors.black,
-                                      fontSize: 14.0,
-                                      letterSpacing: 1.2,
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(left: 7),
+                                child: Text(
+                                  "Fetching Data",
+                                  style: HeaderTextStyle.customHeadline,
+                                )),
                           ],
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Expanded(
+                      );
+                    } else {
+                      if (mailController.mailList.value!.hydraTotalItems == 0) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.report_gmailerrorred_rounded,
+                                size: 70,
+                                color: deepRedColor,
+                              ),
+                              Text(
+                                "No mail for now",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return RefreshIndicator(
+                          key: _refreshIndicatorKey,
+                          onRefresh: () async {
+                            mailController.fetchMails();
+                          },
                           child: Container(
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
@@ -201,13 +198,13 @@ class _MailInboxViewState extends State<MailInboxView> {
                               },
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              }
-            }),
+                        );
+                      }
+                    }
+                  }),
+                ),
+              ),
+            ],
           ),
         ),
       ),

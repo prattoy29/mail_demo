@@ -136,7 +136,7 @@ class CreateAccountScreen extends StatelessWidget {
                 style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
               ),
               onPressed: () {
-                username = textEditingController1.text;
+                username = textEditingController1.text+domain;
                 password = textEditingController.text;
                 authController.createAccount(
                     UserAuthRequest(address: username, password: password),
