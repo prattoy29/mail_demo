@@ -1,7 +1,3 @@
-# mail_demo
-
-A demo mailing project
-
 ## Getting Started
 
 # Mail App
